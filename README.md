@@ -34,3 +34,11 @@ wthor = {version = "0.5", features = ["serde"]}
 ## Examples
 
 Examples can be [found here](/examples).
+
+### Export example
+
+Run a year export, eg 1977, with:
+
+```
+cargo run --example export 1977
+```

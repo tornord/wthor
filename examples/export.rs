@@ -1,5 +1,5 @@
 use std::env;
-use std::fs::{metadata, write, File};
+use std::fs::{create_dir_all, metadata, write, File};
 use std::io::Read;
 use std::path::Path;
 use wthor;
@@ -27,9 +27,10 @@ fn main() -> Result<(), wthor::WthorError> {
     let args: Vec<String> = env::args().collect();
     let f = &args[1];
     // let f = "WTH_1977";
-    print!("Exporting {}...", f);
-    let wtb_filename = format!("../wthor-database/{f}.wtb");
+    create_dir_all("../data").expect("cannot create directory");
+    let wtb_filename = format!("./wthor-database/WTH_{f}.wtb");
     let wtb_path = Path::new(&wtb_filename);
+    print!("Exporting {}...", wtb_filename);
     let mut wtb_file = File::open(&wtb_path).expect("no file found");
     let wtb_metadata = metadata(&wtb_path).expect("unable to read metadata");
     let mut wtb_buffer = vec![0; wtb_metadata.len() as usize];
@@ -39,7 +40,7 @@ fn main() -> Result<(), wthor::WthorError> {
         .expect("Unexpected parsing error");
 
     let txt = games.iter().map(game_to_str).collect::<Vec<String>>();
-    let txt_filename = format!("../data/{f}.txt");
+    let txt_filename = format!("./data/WTH_{f}.txt");
     let path = Path::new(&txt_filename);
     write(path, txt.join("\n")).expect("unable to write file");
     Ok(())

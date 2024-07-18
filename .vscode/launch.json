@@ -93,8 +93,8 @@
           "kind": "example"
         }
       },
-      "args": ["WTH_1981"],
-      "cwd": "${workspaceFolder}/examples"
+      "args": ["1977"],
+      "cwd": "${workspaceFolder}"
     },
     {
       "type": "lldb",
